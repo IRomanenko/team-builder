@@ -24,7 +24,23 @@
         </li>
       </ul>
       <div class="user-actions">
-        <button class="btn btn-outline-success">Вход</button>
+          <div *ngIf="!(authService.user | async)" class="form-inline">
+            <input type="text" [(ngModel)]="email" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="email">
+            <input type="password" [(ngModel)]="password" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="password">
+          
+            <!--
+            <button (click)="signup()" [disabled]="!email || !password" class="btn btn-primary">
+              Signup
+            </button>
+            -->
+            <button (click)="login()" [disabled]="!email || !password" class="btn btn-primary">
+              Login
+            </button>
+          </div>
+          <span class="text-responsive" *ngIf="authService.user | async">{{ (authService.user | async)?.email }}</span>
+          <button (click)="logout()" *ngIf="authService.user | async" class="btn btn-primary">
+            Logout
+          </button>
       </div>
     </div>
   </div>
